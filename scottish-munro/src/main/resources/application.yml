@@ -1,0 +1,8 @@
+si:
+  tadej:
+    kovacic:
+      scottishmunro:
+        data: 
+          file-location: "static/munrotab_v6.2.csv"
+server:
+  port : 8081
