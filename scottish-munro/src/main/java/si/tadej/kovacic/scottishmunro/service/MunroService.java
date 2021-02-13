@@ -31,44 +31,83 @@ public class MunroService {
 		if(filter.getMaxHeight() != null) {
 			munros = munros.stream().filter(m -> filter.getMaxHeight() >= m.getHeight()).collect(toList());
 		}
-		
-		if(munros.size() > filter.getLimitResults()) {
-			munros = munros.subList(0, filter.getLimitResults()-1);
-		}
 		if(filter.getFilterByHeight() != null || filter.getFilterByName() != null) {
 			Comparator<MunroDTO> compare = null;
 			if(filter.getFilterByHeight() != null) {
 				switch(filter.getFilterByHeight()) {
 				case ASC:
-					compare = Comparator.comparing(MunroDTO::getHeight);
+					compare = Comparator.comparing(MunroDTO::getHeight, (m1, m2) -> {
+					    if(m1 == m2){
+					         return 0;
+					    } else if(m1 == null) {
+					    	return 1;
+					    } else if(m2 == null) {
+					    	return -1;
+					    } else {
+					    	return m1<m2 ? -1 : 1;
+					    }
+					});
 					break;
 				case DESC:
-					compare = Comparator.comparing(MunroDTO::getHeight).reversed();
+					compare = Comparator.comparing(MunroDTO::getHeight, (m1, m2) -> {
+					    if(m1 == m2){
+					         return 0;
+					    } else if(m1 == null) {
+					    	return 1;
+					    } else if(m2 == null) {
+					    	return -1;
+					    } else {
+					    	return m1>m2 ? -1 : 1;
+					    }
+					});
 					break;
 				default:
 					break;
 				}
 			}
 			if(filter.getFilterByName() != null) {
-				Comparator<MunroDTO> compareByHeight = null;
-				switch(filter.getFilterByHeight()) {
+				Comparator<MunroDTO> compareByName = null;
+				switch(filter.getFilterByName()) {
 				case ASC:
-					compareByHeight = Comparator.comparing(MunroDTO::getHeight);
+					compareByName = Comparator.comparing(MunroDTO::getName, (m1, m2) -> {
+					    if(m1 == m2){
+					         return 0;
+					    } else if(m1 == null) {
+					    	return 1;
+					    } else if(m2 == null) {
+					    	return -1;
+					    } else {
+					    	return m1.compareToIgnoreCase(m2);
+					    }
+					});
 					break;
 				case DESC:
-					compareByHeight = Comparator.comparing(MunroDTO::getHeight).reversed();
+					compareByName = Comparator.comparing(MunroDTO::getName, (m1, m2) -> {
+					    if(m1 == m2){
+					         return 0;
+					    } else if(m1 == null) {
+					    	return 1;
+					    } else if(m2 == null) {
+					    	return -1;
+					    } else {
+					    	return m2.compareToIgnoreCase(m1);
+					    }
+					});
 					break;
 				default:
 					break;
 				
 				}
 				if(compare != null) {
-					compare = compare.thenComparing(compareByHeight);
+					compare = compare.thenComparing(compareByName);
 				} else {
-					compare = compareByHeight;
+					compare = compareByName;
 				}
 			}
 			munros.sort(compare);
+		}
+		if(filter.getLimitResults() != null && munros.size() > filter.getLimitResults()) {
+			munros = munros.subList(0, filter.getLimitResults());
 		}
 		return munros;
 	}

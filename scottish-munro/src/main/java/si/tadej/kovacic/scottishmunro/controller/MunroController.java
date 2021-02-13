@@ -18,14 +18,14 @@ public class MunroController {
 	@Autowired
 	private MunroService service;
 	
-	@GetMapping(path = "/munros", produces = "application/json")
+	@GetMapping("/munros")
 	public MunroResponseDTO getMunros(
-			@RequestParam String category, 
-			@RequestParam FilterOrder filterByHeight,
-			@RequestParam FilterOrder filterByName,
-			@RequestParam @Min(1)Integer limitResults,
-			@RequestParam @Min(0)Float minHeight,
-			@RequestParam @Min(0)Float maxHeight) {
+			@RequestParam(required = false) String category, 
+			@RequestParam(required = false) FilterOrder filterByHeight,
+			@RequestParam(required = false) FilterOrder filterByName,
+			@RequestParam(required = false) @Min(1)Integer limitResults,
+			@RequestParam(required = false) @Min(0)Float minHeight,
+			@RequestParam(required = false) @Min(0)Float maxHeight) {
 		MunroResponseDTO result = new MunroResponseDTO();
 		FilterParamsDTO filter = new FilterParamsDTO(category, filterByHeight, filterByName, limitResults, minHeight, maxHeight);
 		result.setFilter(filter);
