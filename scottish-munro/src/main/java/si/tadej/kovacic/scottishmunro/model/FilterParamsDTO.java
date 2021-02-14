@@ -1,5 +1,7 @@
 package si.tadej.kovacic.scottishmunro.model;
 
+import javax.annotation.Generated;
+
 public class FilterParamsDTO {
 
 	private String catagory;
@@ -8,6 +10,16 @@ public class FilterParamsDTO {
 	private Integer limitResults;
 	private Float minHeight;
 	private Float maxHeight;
+
+	@Generated("SparkTools")
+	private FilterParamsDTO(Builder builder) {
+		this.catagory = builder.catagory;
+		this.filterByHeight = builder.filterByHeight;
+		this.filterByName = builder.filterByName;
+		this.limitResults = builder.limitResults;
+		this.minHeight = builder.minHeight;
+		this.maxHeight = builder.maxHeight;
+	}
 	
 	public FilterParamsDTO() {
 	}
@@ -58,6 +70,62 @@ public class FilterParamsDTO {
 	public void setMaxHeight(Float maxHeight) {
 		this.maxHeight = maxHeight;
 	}
-	
-	
+
+	/**
+	 * Creates builder to build {@link FilterParamsDTO}.
+	 * @return created builder
+	 */
+	@Generated("SparkTools")
+	public static Builder builder() {
+		return new Builder();
+	}
+	/**
+	 * Builder to build {@link FilterParamsDTO}.
+	 */
+	@Generated("SparkTools")
+	public static final class Builder {
+		private String catagory;
+		private FilterOrder filterByHeight;
+		private FilterOrder filterByName;
+		private Integer limitResults;
+		private Float minHeight;
+		private Float maxHeight;
+
+		private Builder() {
+		}
+
+		public Builder withCatagory(String catagory) {
+			this.catagory = catagory;
+			return this;
+		}
+
+		public Builder withFilterByHeight(FilterOrder filterByHeight) {
+			this.filterByHeight = filterByHeight;
+			return this;
+		}
+
+		public Builder withFilterByName(FilterOrder filterByName) {
+			this.filterByName = filterByName;
+			return this;
+		}
+
+		public Builder withLimitResults(Integer limitResults) {
+			this.limitResults = limitResults;
+			return this;
+		}
+
+		public Builder withMinHeight(Float minHeight) {
+			this.minHeight = minHeight;
+			return this;
+		}
+
+		public Builder withMaxHeight(Float maxHeight) {
+			this.maxHeight = maxHeight;
+			return this;
+		}
+
+		public FilterParamsDTO build() {
+			return new FilterParamsDTO(this);
+		}
+	}	
 }

@@ -19,6 +19,18 @@ public class MunroService {
 	
 	@Autowired
 	private MunroStore store;
+	
+
+	public MunroService() {
+	}
+
+
+	public MunroService(MunroStore store) {
+		super();
+		this.store = store;
+	}
+
+
 
 	public List<MunroDTO> getMunrosByFilter(FilterParamsDTO filter) {
 		List<MunroDTO> munros = store.getMunros();

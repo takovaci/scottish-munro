@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import si.tadej.kovacic.scottishmunro.model.MunroDTO;
 
 @Repository
-
 public class MunroStore {
 
 	private List<MunroDTO> munros;
